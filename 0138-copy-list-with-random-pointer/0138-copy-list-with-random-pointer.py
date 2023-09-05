@@ -32,7 +32,7 @@ class Solution1:
         return ans.next
 
 # using extra space
-class Solution:
+class Solution2:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         map = {None: None}
         cur = head
@@ -49,4 +49,35 @@ class Solution:
             cur = cur.next
         
         return map[head]
+
+
         
+# no extra space
+class Solution:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+
+        curr = head
+        while curr:
+            copy = Node(curr.val)
+            temp = curr.next
+            curr.next = copy
+            copy.next = temp
+            curr = curr.next.next
+
+        curr = head
+        while curr:
+            if curr.random == None:
+                curr.next.random = None
+            else:
+                curr.next.random = curr.random.next
+            curr = curr.next.next
+
+        curr = head
+        ans = Node(0)
+        temp = ans
+        while curr:
+            temp.next = curr.next
+            curr = curr.next.next
+            temp = temp.next
+        
+        return ans.next
