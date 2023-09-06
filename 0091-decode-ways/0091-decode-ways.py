@@ -52,4 +52,17 @@ class Solution:
                 ways += solve(i + 2)
             return ways
 
-        return solve(0) 
+        dp = [0 for i in range(n+1)]
+        dp[n] = 1
+        for i in range(n-1, -1, -1):
+            if s[i] == '0':
+                continue
+            ways = 0
+            ways += dp[i+1]
+            if i+1 < n and int(s[i:i+2])>=1 and int(s[i:i+2])<=26:
+                ways += dp[i+2]
+            dp[i] = ways
+        return dp[0]
+
+
+
