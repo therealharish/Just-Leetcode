@@ -37,9 +37,8 @@ class Solution3:
 class Solution:
     def rob(self, nums: List[int]) -> int:
         
-        @cache
-        def solve(pos):
-            if pos >= len(nums):
-                return 0
-            return max(nums[pos] + solve(pos + 2), solve(pos + 1))
-        return solve(0)   
+        dp = [0 for i in range(len(nums)+1)]
+        dp[len(nums)-1] = nums[-1]
+        for i in range(len(nums)-2, -1, -1):
+            dp[i] = max(nums[i]+dp[i+2], dp[i+1])
+        return dp[0]  
