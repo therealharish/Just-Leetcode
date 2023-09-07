@@ -1,4 +1,6 @@
-class Solution:
+
+# approach using prefix and suffix multiplication
+class Solution1:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
 
         prefix = [0 for i in range(len(nums))]
@@ -16,3 +18,18 @@ class Solution:
         for i in range(len(nums)):
             ans.append(prefix[i]*suffix[i])
         return ans
+
+# single space solution
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+
+        prod = [1 for i in range(len(nums))]
+        temp = 1
+        for i in range(len(nums)):
+            prod[i] = temp
+            temp = temp * nums[i]
+        temp = 1
+        for i in range(len(nums)-1, -1, -1):
+            prod[i] *= temp
+            temp = temp * nums[i]
+        return prod
