@@ -6,27 +6,27 @@
 #         self.right = right
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        found = False
-        
-        def check(root, subRoot):
-            if not root and not subRoot:
+
+        def sameTree(s, t):
+            if not s and not t:
                 return True
-            if not root or not subRoot:
+            if s and not t:
                 return False
-            if root.val != subRoot.val:
+            if not s and t:
                 return False
-            return check(root.left, subRoot.left) and check(root.right, subRoot.right)
+            if s.val == t.val:
+                return sameTree(s.left, t.left) and sameTree(s.right, t.right)
+            else:
+                return False
 
-        def solve(root, subRoot):
-            if not root:
-                return
-            if root.val == subRoot.val:
-                ans = check(root, subRoot)
-                if ans:
-                    return True
-
-            return solve(root.left, subRoot) or solve(root.right, subRoot)
-
-        return solve(root, subRoot)
-            
+        def isSub(s, t):
+            if not s and t:
+                return False
+            if s and not t:
+                return True
+            if sameTree(s, t):
+                return True
+            return isSub(s.left, t) or isSub(s.right, t)
+        
+        return isSub(root, subRoot)
         
