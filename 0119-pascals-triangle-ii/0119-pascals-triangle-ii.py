@@ -1,4 +1,5 @@
-class Solution:
+# bruteforce
+class Solution1:
     def getRow(self, rowIndex: int) -> List[int]:
         ans = []
         for i in range(rowIndex + 1):
@@ -12,3 +13,17 @@ class Solution:
                 ans.append(temp)
                 print(ans)
         return ans[-1]
+
+# optimized, math
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+
+        if rowIndex == 0:
+            return [1]
+        elif rowIndex == 1:
+            return [1, 1]
+        else:
+            ans = []
+            for i in range(rowIndex+1):
+                ans.append(comb(rowIndex, i))
+            return ans
