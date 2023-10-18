@@ -5,18 +5,22 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    prev = None
-    mini = sys.maxsize
     def minDiffInBST(self, root: Optional[TreeNode]) -> int:
-        def in_order_trav(root):
-            if root.left:
-                self.minDiffInBST(root.left)
-            if self.prev:
-                if abs(root.val - self.prev.val) < self.mini:
-                    self.mini = root.val - self.prev.val
-            self.prev = root
-            if root.right:
-                self.minDiffInBST(root.right)
 
-        in_order_trav(root)
-        return self.mini
+        ans = float('inf')
+        prev = None
+        def solve(root):
+            nonlocal ans
+            nonlocal prev
+            if root.left:
+                solve(root.left)
+            if prev:
+                ans = min(ans, abs(root.val - prev.val))
+            prev = root
+            if root.right:
+                solve(root.right)
+        
+        solve(root)
+        return ans
+
+        
