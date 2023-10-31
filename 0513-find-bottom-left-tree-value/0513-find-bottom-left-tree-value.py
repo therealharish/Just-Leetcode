@@ -7,18 +7,21 @@
 class Solution:
     def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
 
-        leftMost = None
-        q = deque()
-        q.append(root)
-        while q:
-            size = len(q)
-            leftMost = q[0]
-            for i in range(size):
-                curr = q.popleft()
-                if curr.left:
-                    q.append(curr.left)
-                if curr.right:
-                    q.append(curr.right)
-        return leftMost.val
+        height = 0
+        ans = root.val
+        def solve(i, root):
+            nonlocal height
+            nonlocal ans
+            
+            if not root:
+                return
+            
+            if i > height:
+                height = i
+                ans = root.val
+            solve(i+1, root.left)
+            solve(i+1, root.right)
 
+        solve(0, root)
+        return ans
         
